@@ -1,5 +1,5 @@
 #include "util/util.h"
-
+void chapter1();
 int main()
 {
     int input;
@@ -12,9 +12,18 @@ int main()
     switch(input)
     {
         case 1: 
-            std::cout << "placeholder \n";
+            chapter1();
         break;
         default:
             std::cout << input << std::endl;
     }
+}
+
+void chapter1()
+{
+    std::vector<std::string> inputVec;
+    Util::readFile("./input/everybody_codes_e2025_q01_p1.txt", inputVec);
+
+    for(auto str : inputVec)
+        std::cout << str << std::endl;
 }
