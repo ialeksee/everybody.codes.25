@@ -1,5 +1,5 @@
-#ifndef DAY_1
-#define DAY_1
+#pragma once
+
 void chapter1()
 {
     {
@@ -177,4 +177,3 @@ void chapter1()
         std::cout << "Part 3, my other parent's name: " << names.at(0) << std::endl;
     }
 }
-#endif
