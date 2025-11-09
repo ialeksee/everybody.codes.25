@@ -1,9 +1,13 @@
 #pragma once
 
+#include <algorithm>
+#include <cstdint>
 class Complex
 {
 public:
     Complex():X{0},Y{0}{};
+    Complex(int x, int y):X{x}, Y{y}{};
+
     Complex& operator=(const Complex& other )
     {
         X = other.X;
@@ -40,9 +44,9 @@ public:
     Complex& operator*=(const Complex& rhs)
     {
         Complex tmp = *this;
-        X = (tmp.X * rhs.X) - (tmp.Y * rhs.Y);
-        Y = (tmp.X * rhs.Y) + (tmp.Y * rhs.X);
-        
+        Complex tmp2 = rhs;
+        X = (tmp.X * tmp2.X) - (tmp.Y * tmp2.Y);
+        Y = (tmp.X * tmp2.Y) + (tmp.Y * tmp2.X);
         return *this;
     }
 
@@ -76,35 +80,103 @@ public:
         is >> num.X >> num.Y;
         return is;
     }
+    friend bool operator< (const Complex& lhs, const Complex& rhs) { return ((lhs.X < rhs.X) || (lhs.Y < rhs.Y)); }
+    friend bool operator> (const Complex& lhs, const Complex& rhs) { return rhs < lhs; }
+    friend bool operator<=(const Complex& lhs, const Complex& rhs) { return !(lhs > rhs); }
+    friend bool operator>=(const Complex& lhs, const Complex& rhs) { return !(lhs < rhs); }
+    void setX(int x) {X = x;};
+    void setY(int y) {Y = y;};
+    int getX() {return X;};
+    int getY() {return Y;};
+
 private:
-    int X, Y;
+    int64_t X, Y;
 };
+
+bool engravePoint(Complex& tst)
+{
+    bool engrave = true;
+    bool once = true;
+    Complex result{0,0};
+    Complex up{1000000, 1000000};
+    Complex low{-1000000,-1000000};
+    uint8_t counter{0};
+
+    //std::cout << "engrave: " << tst << std::endl;
+    while(counter < 100)
+    {
+        result *= result;
+        result /= {100000, 100000};
+        result += tst;
+        if((result > up) || (result < low))
+        {
+            engrave = false;
+            break;
+        }
+        counter++;
+    } 
+
+    return engrave;
+}
 
 void chapter2()
 {
-    Complex num1, num2, result;
+    Complex  A, result;
 
     std::cout << "input a complex number:" << std::endl;
-    std::cin >> num1;
-    std::cout << "input a second one:" << std::endl;
-    std::cin >> num2;
+    std::cin >> A;
+    
+    uint8_t counter = 0;
+    while(counter < 3)
+    {
+        result *= result;
+        result /= {10,10};
+        result += A;
+        counter++;
+    }
 
-    std::cout << num1 << std::endl;
-    std::cout << num2 << std::endl;
+    std::cout << "Result: " << result << std::endl;
+}
 
-    std::cout << "Addition:\n";
-    result = num1 + num2;
-    std::cout << result << std::endl;
+void chapter2_1()
+{
+    constexpr unsigned int grid_size = 100; 
+    constexpr unsigned int step = 10;
+    const Complex hor_step{10, 0};
+    const Complex ver_step{0, 10};
+    Complex start_point{-4591, -68892};
+//    Complex start_point{35300, -64910};
+    std::array<unsigned char, 10201> grid;
+    grid.fill('.');
 
-    std::cout << "Substraction:\n";
-    result = num1 - num2;
-    std::cout << result << std::endl;
+   // std::cout << "Input start coordinates:" << std::endl;
+  //  std::cin >> start_point;
 
-    std::cout << "Multiplication:\n";
-    result = num1 * num2;
-    std::cout << result << std::endl;
+    Complex end_point = start_point;
+int engraved_points{0};
+    for(size_t i{0}; i < 10201; i++)
+    {
 
-    std::cout << "Division:\n";
-    result = num1 / num2;
-    std::cout << result << std::endl;
+        if(engravePoint(end_point))
+        {
+            grid[i] = 'X';
+            engraved_points++;
+        }
+
+        if((i+1) % grid_size)
+        {
+            end_point += hor_step;
+        }
+        else
+        {
+            end_point += ver_step;
+            end_point.setX(start_point.getX());
+        }
+    }
+
+    for(size_t cnt{}; char c : grid)
+    {
+        std::cout << c << ((++cnt%grid_size) ? "" : "\n");
+    }
+    std::cout << "Engraved points: " << engraved_points << std::endl; 
 }

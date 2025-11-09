@@ -19,7 +19,7 @@ int main()
             chapter1();
         break;
         case 2:
-            chapter2();
+            chapter2_1();
         break;
         default:
             std::cout << input << std::endl;
