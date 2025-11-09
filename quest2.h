@@ -140,26 +140,27 @@ void chapter2()
 
 void chapter2_1()
 {
-    constexpr unsigned int grid_size = 101; 
-    constexpr unsigned int step = 10;
-    const Complex hor_step{10, 0};
-    const Complex ver_step{0, 10};
+    constexpr unsigned int grid_size = 1001;
+    constexpr unsigned int total_grid_size = grid_size*grid_size;
+    constexpr unsigned int step = 1;
+    const Complex hor_step{1, 0};
+    const Complex ver_step{0, 1};
     Complex start_point{-4591, -68892};
-//    Complex start_point{35300, -64910};
-    std::array<unsigned char, 10201> grid;
-    grid.fill('.');
+    //Complex start_point{35300, -64910};
+    //std::array<unsigned char, total_grid_size> grid;
+   // grid.fill('.');
 
    // std::cout << "Input start coordinates:" << std::endl;
   //  std::cin >> start_point;
 
     Complex end_point = start_point;
 int engraved_points{0};
-    for(size_t i{0}; i < 10201; i++)
+    for(size_t i{0}; i < total_grid_size; i++)
     {
 
         if(engravePoint(end_point))
         {
-            grid[i] = 'X';
+  //          grid[i] = 'X';
             engraved_points++;
         }
 
@@ -173,10 +174,11 @@ int engraved_points{0};
             end_point.setX(start_point.getX());
         }
     }
-
+/*
     for(size_t cnt{}; char c : grid)
     {
         std::cout << c << ((++cnt%grid_size) ? "" : "\n");
     }
+*/
     std::cout << "Engraved points: " << engraved_points << std::endl; 
 }
