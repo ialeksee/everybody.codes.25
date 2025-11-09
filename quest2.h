@@ -140,7 +140,7 @@ void chapter2()
 
 void chapter2_1()
 {
-    constexpr unsigned int grid_size = 100; 
+    constexpr unsigned int grid_size = 101; 
     constexpr unsigned int step = 10;
     const Complex hor_step{10, 0};
     const Complex ver_step{0, 10};
