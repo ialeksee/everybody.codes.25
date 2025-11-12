@@ -165,12 +165,8 @@ void chapter1()
                 index -= names.size();
 
             std::string temp = names.at(0);
-            std::cout << temp << std::endl; 
-            std::cout << "index at: " << index << std::endl;
             names[0] = names[index];
-            std::cout << names[0] << std::endl; 
             names[index] = temp;
-            std::cout << names[index] << std::endl; 
  
         }
     
