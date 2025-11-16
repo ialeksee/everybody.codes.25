@@ -4,16 +4,19 @@
 #include "quest2.h"
 #include "quest3.h"
 #include "quest4.h"
+#include "quest5.h"
+
 
 int main()
 {
     int input;
     std::cout << "*************** A Song of Ducks and Dragons ****************** \n";
     std::cout << "Choose a challenge:\n";
-    std::cout << "1. Whispers in the Shell\n";
-    std::cout << "2. From complex to clarity\n";
-    std::cout << "3. The deepest fit\n";
-    std::cout << "4. Teeth of the wind\n";
+    std::cout << "1. Whispers in the Shell.\n";
+    std::cout << "2. From complex to clarity.\n";
+    std::cout << "3. The deepest fit.\n";
+    std::cout << "4. Teeth of the wind.\n";
+    std::cout << "5. Fishbone order.\n";
     std::cout << "Any other key to quit.\n";
 
     std::cin >> input;
@@ -31,6 +34,9 @@ int main()
         break;
         case 4:
             chapter4();
+        break;
+        case 5:
+            chapter5();
         break;
         default:
             std::cout << input << std::endl;
